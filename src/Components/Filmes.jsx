@@ -1,33 +1,43 @@
 import React from "react";
 import styled from 'styled-components';
 import axios from "axios";
+import { Link } from "react-router-dom";
 export default function Filmes(){
     const [filmList,setFilmList] = React.useState([]);
     React.useEffect(()=>{const promise=axios.get("https://mock-api.driven.com.br/api/v5/cineflex/movies");
-    promise.then(lista=>criaLista(lista,setFilmList,filmList));},[])
-    const filmComponents= filmList.map(film=>
-        <Filme>
-            <img src={film.img} alt={film.title}></img>
-        </Filme>)
-    console.log(filmList)
+    promise.then(res=>setFilmList(res.data));},[])
     return(
         <FilmBox>
-            {filmComponents}
+            {filmList.map(film=>
+                <Link to={`/sessoes/${film.id}`}>
+                    <Filme>
+                        <img src={film.posterURL} alt={film.title}></img>
+                    </Filme>
+                </Link>
+                )}
         </FilmBox>
 
     )
 }
 
-function criaLista(response,setFilmList,filmList){
-    response.data.map(obj=>setFilmList([...filmList,{id:obj.id, img:obj.posterURL,title:obj.title}]))
-}
 const FilmBox= styled.div`
     display:flex;
     align-items:center;
-    justify-content:center;
+    justify-content:space-around;
+    width:100%;
+    flex-wrap:wrap;
 `
 const Filme= styled.div`
     display:flex;
     align-items:center;
     justify-content:center;
+    width:145px;
+    height:209px;
+    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    margin-bottom:11px;
+    img{
+        width:129px;
+        height:193px;
+    }
 `
