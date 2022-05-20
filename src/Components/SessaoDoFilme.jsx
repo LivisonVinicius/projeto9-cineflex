@@ -9,7 +9,6 @@ export default function SessaoDoFilme(){
     const {idFilme} = useParams();
 
     const [film, setFilm]= useState([]);
-    console.log(idFilme)
     useEffect(()=>{
         const requisicao = axios.get(
             `https://mock-api.driven.com.br/api/v5/cineflex/movies/${idFilme}/showtimes`
@@ -28,6 +27,7 @@ export default function SessaoDoFilme(){
                     <Horarios dia={dia} />
                 </Sessao>)
                 }
+            
         </>
     )
 }
