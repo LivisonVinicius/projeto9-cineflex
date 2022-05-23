@@ -24,7 +24,7 @@ const FilmBox= styled.div`
     display:flex;
     align-items:center;
     justify-content:space-around;
-    max-width:100%;
+    width:100%;
     flex-wrap:wrap;
 `
 const Filme= styled.div`
