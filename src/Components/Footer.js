@@ -4,9 +4,7 @@ export default function Footer ({info}){
     return(
         <>
             {info.length===0?<Foot display="none"></Foot>:info.length===1?<Foot display="flex"><div><img src={info[0][1]}/>  </div> <ul>{info[0][0]}</ul></Foot>:info.length===2?<Foot display="flex"><div><img src={info[0][1]}/>  </div> <ul>{info[0][0]}<br/>{`${info[1][1]} - ${info[1][0]}`}</ul></Foot>:<Foot display="none"></Foot>}
-        </>
-            
-        
+        </> 
     )
 }
 

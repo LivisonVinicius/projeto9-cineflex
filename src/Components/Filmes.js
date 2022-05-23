@@ -9,7 +9,7 @@ export default function Filmes(){
     return(
         <FilmBox>
             {filmList.map(film=>
-                <Link to={`/sessoes/${film.id}`}>
+                <Link style={{textDecoration:"none"}} to={`/sessoes/${film.id}`}>
                     <Filme>
                         <img src={film.posterURL} alt={film.title}></img>
                     </Filme>

@@ -19,7 +19,7 @@ export default function App(){
 	            <Route path="/" element={<Home />}/>
                 <Route path="/sessoes/:idFilme" element={<SessaoDoFilme storeInfo={storeInfo}/>}/>
                 <Route path="/assentos/:idSessao" element={<Assentos storeInfo={storeInfo}/>}/>
-                <Route path="/sucesso" element={<Sucesso info={info} />}/>
+                <Route path="/sucesso" element={<Sucesso info={info} setInfo={setInfo} />}/>
 	        </Routes>
             <Footer info={info} />
         </BrowserRouter>

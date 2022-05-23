@@ -5,7 +5,7 @@ export default function Horarios(props){
     return(
         <Horario>
             {props.dia.showtimes.map(hora=>
-                <Link to={`/assentos/${hora.id}`}>
+                <Link style={{textDecoration:"none"}} to={`/assentos/${hora.id}`}>
                     <Hora key={hora.id}>{hora.name}</Hora>
                 </Link>  
                 )}
