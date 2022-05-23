@@ -5,9 +5,8 @@ import axios from "axios";
 import styled from 'styled-components';
 import Horarios from "./Horarios";
 
-export default function SessaoDoFilme(){
+export default function SessaoDoFilme({storeInfo}){
     const {idFilme} = useParams();
-
     const [film, setFilm]= useState([]);
     useEffect(()=>{
         const requisicao = axios.get(
@@ -16,10 +15,11 @@ export default function SessaoDoFilme(){
         
         requisicao.then((res)=> {
             setFilm(res.data.days);
+            storeInfo([res.data.title,res.data.posterURL]);
         });
     },[]);
     return(
-        <>
+        <MID>
             <Selecao>Selecione o horário</Selecao>
             {film.map(dia=>
                 <Sessao key={dia.id}>
@@ -27,8 +27,7 @@ export default function SessaoDoFilme(){
                     <Horarios dia={dia} />
                 </Sessao>)
                 }
-            
-        </>
+        </MID>
     )
 }
 
@@ -55,4 +54,7 @@ const Dia = styled.div`
     line-height: 23px;
     color: #293845;
     letter-spacing: 0.02em;
+`
+const MID = styled.div`
+    margin-bottom:151px;
 `

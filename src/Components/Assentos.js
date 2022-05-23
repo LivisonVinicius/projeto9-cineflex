@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import AssentoD from "./AssentoD";
 import Formulario from "./Formulario";
 
-export default function Assentos(){
+export default function Assentos({storeInfo}){
     const {idSessao} = useParams();
     const [assentos, setAssentos]= useState([]);
     const [selecionados, setSelecionados] = useState([]);
@@ -13,13 +13,12 @@ export default function Assentos(){
     
     function selecionaSelecionados(assento,id){
         setSelecionados([...selecionados,assento]);
-        setIdselecionados([...idselecionados,id]);
-        
+        setIdselecionados([...idselecionados,Number(id)]);
     }
 
     function removeSelecionados(assento,id){
         setSelecionados((selecionados) => selecionados.filter((selecionado) => selecionado !== assento));
-        setIdselecionados((idselecionados) => idselecionados.filter((selecionado) => selecionado !== id));
+        setIdselecionados((idselecionados) => idselecionados.filter((selecionado) => selecionado !== Number(id)));
     }
 
     useEffect(()=>{
@@ -29,6 +28,7 @@ export default function Assentos(){
         
         requisicao.then((res)=> {
             setAssentos(res.data.seats);
+            storeInfo([res.data.name, res.data.day.date]);
         });
     },[]);
     
@@ -37,13 +37,13 @@ export default function Assentos(){
             <Selecao>{"Selecione o(s) assento(s)"}</Selecao>
             <AssentosBox>
                 {assentos.map(assento=>!assento.isAvailable?
-                <Assento background="#FBE192" border="#F7C52B">{assento.name}</Assento>:<AssentoD name={assento.name} selecionaSelecionados={selecionaSelecionados} selecionados={selecionados} id={assento.id} removeSelecionados={removeSelecionados} />)}
+                <Assento background="#FBE192" border="#F7C52B" onClick={()=>alert("Esse assento não está disponível")}>{assento.name}</Assento>:<AssentoD name={assento.name} selecionaSelecionados={selecionaSelecionados} selecionados={selecionados} id={assento.id} removeSelecionados={removeSelecionados} />)}
                 <LegendaBox>
                     <Legenda><Assento background="#8DD7CF" border="#1AAE9E"></Assento>Selecionado</Legenda>
                     <Legenda><Assento background="#C3CFD9" border="#7B8B99"></Assento>Disponível</Legenda>
                     <Legenda><Assento background="#FBE192" border="#F7C52B"></Assento>Indisponível</Legenda>
                 </LegendaBox>
-                <Formulario/>
+                <Formulario idselecionados={idselecionados} storeInfo={storeInfo} selecionados={selecionados}/>
             </AssentosBox>
         </MID>
         
@@ -92,6 +92,7 @@ const LegendaBox= styled.div`
     display:flex;
     width: 100%;
     justify-content:space-around;
+    margin-bottom:41px;
 `
 
 const Legenda= styled.div`
